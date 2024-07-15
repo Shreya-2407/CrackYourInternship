@@ -1,0 +1,34 @@
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        l = len(prices)
+        # Use 2D dp array with dimensions l x 2
+        dp = [[-1] * 2 for _ in range(l)]
+       
+        def calc(ind, bought):
+            if ind >= l:
+                return 0
+            if dp[ind][bought] != -1:
+                return dp[ind][bought]
+
+            # If we haven't bought any stock yet
+            if not bought:
+                # We have two choices: buy or skip
+                buy_profit = -prices[ind] + calc(ind + 1, 1)
+                skip_profit = calc(ind + 1, 0)
+                dp[ind][bought] = max(buy_profit, skip_profit)
+                return dp[ind][bought]
+            
+            # If we have bought stock already
+            else:
+                # We have two choices: sell or skip selling
+                sell_profit = prices[ind] + calc(ind + 1, 0)
+                skip_sell_profit = calc(ind + 1, 1)
+                dp[ind][bought] = max(sell_profit, skip_sell_profit)
+                return dp[ind][bought]
+
+        return calc(0, 0)  # Start with index 0, not in bought state
