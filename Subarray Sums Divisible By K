@@ -1,0 +1,22 @@
+class Solution(object):
+    def subarraysDivByK(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        ans = 0
+        d = {0: 1}  
+        curr_sum = 0
+        
+        for elem in nums:
+            curr_sum += elem  
+            div = curr_sum % k
+            
+            if div in d:
+                ans += d[div]  
+                d[div] += 1  
+            else:
+                d[div] = 1  
+        
+        return ans
