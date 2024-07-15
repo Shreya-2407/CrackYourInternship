@@ -1,0 +1,40 @@
+class Solution(object):
+    def findMaxForm(self, strs, m, n):
+        """
+        :type strs: List[str]
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        l = len(strs)
+        
+        # Using a dictionary to memoize the results
+        memo = {}
+
+        def calc(ind, zeros_left, ones_left):
+            # Base case
+            if ind == l:
+                return 0
+            
+            # If this state has been computed before, return the result
+            if (ind, zeros_left, ones_left) in memo:
+                return memo[(ind, zeros_left, ones_left)]
+
+            # Count zeros and ones in the current string
+            count_0 = strs[ind].count('0')
+            count_1 = strs[ind].count('1')
+            
+            # Option 1: Do not take the current string
+            not_take = calc(ind + 1, zeros_left, ones_left)
+            
+            # Option 2: Take the current string (if possible)
+            take = 0
+            if count_0 <= zeros_left and count_1 <= ones_left:
+                take = 1 + calc(ind + 1, zeros_left - count_0, ones_left - count_1)
+            
+            # Memoize and return the result for this state
+            memo[(ind, zeros_left, ones_left)] = max(take, not_take)
+            return memo[(ind, zeros_left, ones_left)]
+        
+        # Start the recursion from the first string and the given m and n
+        return calc(0, m, n)
