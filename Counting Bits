@@ -1,0 +1,19 @@
+class Solution(object):
+    def countBits(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        if n == 0:
+            return [0]
+        dp = [0] * (n + 1)
+        power = 1
+        dp[1] = 1
+        for i in range(2, n + 1):
+            if i == (2 ** power):
+                power += 1
+                dp[i] = 1
+            else:
+                curr = 2 ** (power - 1)
+                dp[i] = dp[curr] + dp[i - curr]
+        return dp
