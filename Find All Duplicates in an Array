@@ -1,0 +1,14 @@
+class Solution(object):
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        ans = []
+        l = len(nums)
+        for elem in nums:
+            elem = abs(elem)
+            if nums[elem - 1] < 0:
+                ans.append(elem)
+            nums[elem - 1] *= -1
+        return ans
