@@ -1,0 +1,36 @@
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = len(nums)
+        ans = float('-inf')
+        prod = 1
+        for elem in nums:
+            prod *= elem
+            ans = max(ans, prod, elem)
+            if prod == 0:
+                prod = 1
+        prod = 1
+        for elem in nums[::-1]:
+            prod *= elem
+            ans = max(ans, prod, elem)
+            if prod == 0:
+                prod = 1
+        return ans
+
+        # second method
+        # l = len(nums)
+        # pre = 1
+        # suff = 1
+        # ans = -1000000
+        # for i in range(l):
+        #     if pre == 0:
+        #         pre = 1
+        #     if suff == 0:
+        #         suff = 1
+        #     pre = pre * nums[i]
+        #     suff = suff * nums[l - i - 1]
+        #     ans = max(ans, pre, suff)
+        # return ans
