@@ -1,0 +1,16 @@
+class Solution(object):
+    def rotate(self, mat):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        l = len(mat)
+
+        for i in range(l):
+            for j in range(i, l):
+                mat[i][j], mat[j][i] = mat[j][i], mat[i][j]
+
+        for r in range(l):
+            mat[r].reverse()
+
+        return mat
