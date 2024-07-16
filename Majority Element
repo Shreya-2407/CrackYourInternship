@@ -1,0 +1,9 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        n = len(nums)
+        min_limit = n // 2
+        num_set = list(set(nums))
+        for elem in num_set:
+            if nums.count(elem) > min_limit:
+                return elem
+        
