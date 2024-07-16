@@ -1,0 +1,49 @@
+import random
+
+class RandomizedCollection(object):
+
+    def __init__(self):
+        self.d = {}  # Dictionary to store the count of elements
+        self.elements = []  # List to store the elements
+    
+
+    def insert(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        found = val in self.d
+        if found:
+            self.d[val] += 1
+        else:
+            self.d[val] = 1
+        self.elements.append(val)
+        return not found
+    
+
+    def remove(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        if val in self.d:
+            self.d[val] -= 1
+            if self.d[val] == 0:
+                del self.d[val]
+            self.elements.remove(val)
+            return True
+        return False
+    
+
+    def getRandom(self):
+        """
+        :rtype: int
+        """
+        return random.choice(self.elements)
+
+
+# Your RandomizedCollection object will be instantiated and called as such:
+# obj = RandomizedCollection()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
