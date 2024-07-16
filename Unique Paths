@@ -1,0 +1,23 @@
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        memo = [[-1]*n for _ in range(m)]
+        def count_ways(i, j, m, n):
+            if i == m - 1 and j == n - 1:
+                return 1
+            if i >= m or j >= n:
+                return 0
+            if memo[i][j] != -1:
+                return memo[i][j]
+            row = count_ways(i + 1, j, m, n)
+            col = count_ways(i, j + 1, m, n)
+            memo[i][j] = row + col
+            return memo[i][j]
+           
+        count = count_ways(0, 0, m, n)
+        return count
