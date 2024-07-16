@@ -1,0 +1,21 @@
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()  
+        ans = set()
+        l = len(nums)
+        
+        for i in range(l):
+           
+            h = set()
+            for j in range(i + 1, l):
+                complement = -nums[i] - nums[j]
+                if complement in h:
+                    ans.add((nums[i], nums[j], complement))
+                h.add(nums[j]) 
+                
+        return [list(triplet) for triplet in ans]
+
